@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dirección de Vida | Panel personal</title>
+<style>
+
+:root{
+ --bg:#070d18;--bg2:#0b1525;--panel:rgba(17,29,48,.82);--panel2:#12223a;
+ --ink:#edf4ff;--muted:#91a3bb;--line:rgba(154,181,216,.16);
+ --cyan:#54d6e8;--blue:#668cff;--violet:#a78bfa;--gold:#e6c783;
+ --green:#50d6a0;--red:#ff7587;--shadow:0 18px 55px rgba(0,0,0,.28)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:var(--ink);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ background:radial-gradient(ellipse at 12% 0%,rgba(50,111,190,.22),transparent 34%),radial-gradient(ellipse at 92% 14%,rgba(105,76,190,.18),transparent 30%),linear-gradient(145deg,#070d18,#0a1424 55%,#080f1c)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:linear-gradient(rgba(150,180,220,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(150,180,220,.07) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
+header{position:relative;overflow:hidden;padding:38px max(20px,calc((100vw - 1180px)/2)) 34px;border-bottom:1px solid rgba(84,214,232,.3);background:linear-gradient(110deg,rgba(16,37,65,.96),rgba(19,29,55,.88));box-shadow:0 12px 40px #0005}
+header:after{content:"";position:absolute;width:340px;height:340px;right:8%;top:-245px;border:1px solid rgba(84,214,232,.28);border-radius:50%;box-shadow:0 0 0 28px rgba(84,214,232,.035),0 0 0 58px rgba(84,214,232,.025),0 0 90px rgba(84,214,232,.12)}
+.eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);font-weight:800;margin-bottom:8px}
+header h1{position:relative;z-index:1;margin:0;font-size:clamp(29px,5vw,44px);line-height:1.08;letter-spacing:-1.5px;background:linear-gradient(90deg,#fff 5%,#bcefff 58%,#d8c4ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+header p{position:relative;z-index:1;margin:12px 0 0;color:#b4c6dd;max-width:680px;font-size:14px}
+main{position:relative;z-index:1;max-width:1180px;margin:26px auto;padding:0 18px 58px}
+nav{display:flex;gap:8px;overflow-x:auto;padding:8px;margin:0 0 22px;border:1px solid var(--line);border-radius:16px;background:rgba(9,19,33,.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button,.btn{appearance:none;border:1px solid transparent;border-radius:11px;padding:11px 15px;background:transparent;color:#aebfd5;cursor:pointer;font:650 13px inherit;white-space:nowrap;transition:all .22s ease}
+nav button:hover{background:#ffffff0b;color:white;border-color:var(--line)}
+nav button.active{color:#06131f;background:linear-gradient(120deg,var(--cyan),#9ae9e8);box-shadow:0 5px 22px rgba(84,214,232,.2)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.btn{background:linear-gradient(120deg,#2d9eb5,#557cf0);color:white;border:0;box-shadow:0 7px 22px rgba(50,133,211,.22)}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1);box-shadow:0 10px 28px rgba(50,133,211,.3)}
+button.secondary{background:#1a2b43;color:#c7d7ec;border:1px solid var(--line)}
+button.danger{background:#572638;color:#ffd5dc;border:1px solid #a94c67}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.card{grid-column:span 12;position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(20,36,59,.9),rgba(12,24,42,.9));border:1px solid var(--line);border-radius:19px;padding:21px;box-shadow:var(--shadow);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);animation:rise .42s ease both}
+.card:before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(84,214,232,.42),transparent)}
+.card>*{position:relative}
+.half{grid-column:span 6}.third{grid-column:span 4}.quarter{grid-column:span 3}
+h2{font-size:19px;letter-spacing:-.3px;margin:0 0 12px;color:#e8f4ff}
+h3{font-size:13px;letter-spacing:1.2px;text-transform:uppercase;margin:22px 0 9px;color:var(--cyan)}
+.muted,.hint{color:var(--muted);font-size:13px}
+.stats{font-size:34px;line-height:1.15;font-weight:800;letter-spacing:-1px;color:#f4fbff;margin-top:7px;text-shadow:0 0 24px rgba(84,214,232,.18)}
+.quarter{min-height:116px}
+.quarter:nth-child(1) .stats{color:var(--cyan)}.quarter:nth-child(2) .stats{color:#8bb5ff}.quarter:nth-child(3) .stats{color:var(--gold)}.quarter:nth-child(4) .stats{color:#c5a7ff}
+label{display:block;font-weight:650;font-size:12px;letter-spacing:.2px;margin:13px 0 6px;color:#c7d7eb}
+input,select,textarea{width:100%;border:1px solid rgba(151,178,213,.22);border-radius:10px;padding:11px 12px;font:inherit;font-size:14px;background:rgba(5,14,27,.72);color:var(--ink);transition:border .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(84,214,232,.1);outline:0}
+input::placeholder,textarea::placeholder{color:#657a95}
+select option{background:#102039;color:#eef5ff}
+textarea{min-height:86px;resize:vertical}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.pill{display:inline-block;padding:5px 10px;border-radius:99px;font-size:12px;font-weight:750;background:rgba(84,214,232,.12);color:#a9eff4;border:1px solid rgba(84,214,232,.18)}
+.green{background:rgba(80,214,160,.14);color:#8df0c5}.yellow{background:rgba(230,199,131,.14);color:#f3d99f}.red{background:rgba(255,117,135,.14);color:#ffadb9}
+.metric{display:flex;justify-content:space-between;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding:13px 2px}
+.metric:last-child{border:0}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:500px}
+th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:#8da5c2;font-size:11px;text-transform:uppercase;letter-spacing:.8px}
+td{color:#d5e1f0}tbody tr:hover{background:rgba(84,214,232,.045)}
+.hidden{display:none!important}
+.notice{background:linear-gradient(110deg,rgba(84,214,232,.1),rgba(102,140,255,.08));border:1px solid rgba(84,214,232,.2);padding:14px 16px;border-radius:12px;color:#c5e9f0}
+footer{margin-top:28px;color:#7186a2;font-size:12px;text-align:center;padding:16px}
+.tab:not(.hidden){animation:fade .3s ease}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fade{from{opacity:.35}to{opacity:1}}
+@media(max-width:760px){header{padding-top:30px;padding-bottom:28px}.half,.third,.quarter{grid-column:span 12}.row{grid-template-columns:1fr}main{margin-top:15px;padding-left:13px;padding-right:13px}.card{padding:17px;border-radius:16px}.stats{font-size:31px}nav{margin-left:-2px;margin-right:-2px}nav button{padding:10px 12px}}
+
+</style>
+</head>
+<body>
+<header><div class="eyebrow">PERSONAL COMMAND CENTER · 01</div><h1>Dirección de Vida</h1><p>Un sistema personal para convertir intención en acciones, acciones en resultados y resultados en decisiones.</p></header>
+<main>
+<nav id="tabs">
+<button type="button" class="active" data-tab="panel">Panel</button><button type="button" data-tab="diario">Registro diario</button><button type="button" data-tab="revision">Revisión semanal</button><button type="button" data-tab="proyectos">Proyectos y finanzas</button><button type="button" data-tab="metas">Metas</button><button type="button" data-tab="datos">Mis datos</button>
+</nav>
+<section id="panel" class="tab">
+<div class="grid">
+<div class="card quarter"><div class="muted">Días registrados</div><div class="stats" id="days">0</div></div>
+<div class="card quarter"><div class="muted">Promedio personal</div><div class="stats" id="personalAvg">—</div></div>
+<div class="card quarter"><div class="muted">Promedio financiero</div><div class="stats" id="financeAvg">—</div></div>
+<div class="card quarter"><div class="muted">Promedio mental</div><div class="stats" id="mentalAvg">—</div></div>
+<div class="card half"><h2>Balance de tus tres pilares</h2><div id="pillarBars"></div><p class="hint">Escala de 1 a 5. Los promedios se calculan con tus registros diarios.</p></div>
+<div class="card half"><h2>Tu siguiente paso</h2><p id="nextStep">Registra tu día para que podamos elegir una acción concreta.</p><div class="notice">Regla del manager: una acción prioritaria y realista por día. No llenes tu agenda para sentir progreso.</div></div>
+<div class="card"><h2>Últimos registros</h2><div id="recent"></div></div>
+</div></section>
+
+<section id="diario" class="tab hidden">
+<div class="card"><h2>Registro diario</h2><p class="muted">Completa una vez al día. Califica cómo actuaste y qué ocurrió; no evalúes tu valor personal.</p>
+<form id="dailyForm">
+<div class="row"><div><label>Fecha</label><input type="date" id="date" required></div><div><label>Energía general (1–5)</label><select id="energy"><option value="">Selecciona</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div></div>
+<h3>Personal</h3><div class="row">
+<div><label>Salud física (1–5)</label><select id="physical" class="rating"></select></div>
+<div><label>Pareja y familia (1–5)</label><select id="family" class="rating"></select></div>
+<div><label>Amistades e interpersonales (1–5)</label><select id="relationships" class="rating"></select></div></div>
+<h3>Financiero</h3><div class="row"><div><label>Avance real de proyectos (1–5)</label><select id="finance" class="rating"></select></div><div><label>Acción financiera concreta de hoy</label><input id="financeAction" placeholder="Ej. validar precio, publicar, contactar cliente"></div></div>
+<h3>Mental</h3><div class="row"><div><label>Meditación y relajación (1–5)</label><select id="calm" class="rating"></select></div><div><label>Concentración y disciplina (1–5)</label><select id="focus" class="rating"></select></div></div>
+<label>Prioridad personal del día</label><input id="personalAction" placeholder="¿Qué acción importante hiciste por ti o tus vínculos?">
+<label>Práctica mental realizada</label><input id="mentalAction" placeholder="Ej. 10 minutos de respiración, lectura sin distracciones">
+<label>Obstáculo, aprendizaje o algo que agradeces</label><textarea id="reflection" placeholder="Breve y concreto..."></textarea>
+<div class="actions"><button class="btn" type="submit">Guardar registro</button><button class="secondary" type="button" id="clearDaily">Limpiar formulario</button></div>
+</form></div>
+<div class="card"><h2>Historial diario</h2><div id="dailyHistory"></div></div>
+</section>
+
+<section id="revision" class="tab hidden">
+<div class="card"><h2>Revisión semanal</h2><p class="muted">Reserva 15 minutos. Decide qué mantener, corregir y dejar de hacer.</p>
+<form id="weeklyForm"><div class="row"><div><label>Semana que termina</label><input type="date" id="weekDate" required></div><div><label>Calificación global de la semana (1–5)</label><select id="weekScore" class="rating"></select></div></div>
+<label>Mayor logro</label><textarea id="win"></textarea><label>Principal obstáculo</label><textarea id="blocker"></textarea><label>¿Qué debo dejar de hacer o reducir?</label><textarea id="stop"></textarea><label>Decisión prioritaria de la próxima semana</label><textarea id="decision"></textarea>
+<div class="actions"><button class="btn">Guardar revisión</button></div></form></div>
+<div class="card"><h2>Revisiones guardadas</h2><div id="weeklyHistory"></div></div>
+</section>
+
+<section id="proyectos" class="tab hidden">
+<div class="card"><h2>Portafolio de proyectos</h2><p class="muted">Registra avance, ingresos, gastos y una siguiente acción. Mantén pocas prioridades activas.</p>
+<form id="projectForm"><div class="row"><div><label>Proyecto</label><select id="projectName"><option>A la Antigua</option><option>Aero Dream</option><option>Asistente personal IA laboral</option><option>Contenido digital viral</option><option>Otro</option></select></div><div><label>Estado</label><select id="projectStatus"><option>Activo</option><option>En desarrollo</option><option>En pausa</option><option>Concluido</option></select></div></div>
+<label>Objetivo del proyecto</label><input id="projectGoal" placeholder="Resultado concreto que buscas">
+<div class="row"><div><label>Indicador principal</label><input id="projectKpi" placeholder="Ventas, pedidos, clientes, alcance..."></div><div><label>Meta del periodo</label><input id="projectTarget" placeholder="Ej. 10 pedidos / 5 clientes"></div></div>
+<div class="row"><div><label>Ingresos ($ MXN)</label><input type="number" min="0" step="0.01" id="income" value="0"></div><div><label>Gastos ($ MXN)</label><input type="number" min="0" step="0.01" id="expense" value="0"></div></div>
+<div class="row"><div><label>Avance (%)</label><input type="number" min="0" max="100" id="progress" value="0"></div><div><label>Fecha compromiso</label><input type="date" id="projectDue"></div></div>
+<label>Siguiente acción concreta</label><textarea id="projectNext"></textarea>
+<div class="actions"><button class="btn">Guardar proyecto</button></div></form></div>
+<div class="card"><h2>Proyectos registrados</h2><div id="projectHistory"></div></div>
+</section>
+
+<section id="metas" class="tab hidden">
+<div class="card"><h2>Metas y resultados</h2><p class="muted">Define qué significa avanzar. Elige metas que puedas observar y medir.</p>
+<form id="goalForm"><div class="row"><div><label>Área</label><select id="goalArea"><option>Personal</option><option>Financiero</option><option>Mental</option></select></div><div><label>Fecha objetivo</label><input type="date" id="goalDue"></div></div>
+<label>Resultado deseado</label><input id="goalText" required placeholder="Ej. sostener tres sesiones de ejercicio por semana">
+<label>Indicador de éxito</label><input id="goalIndicator" placeholder="¿Cómo sabrás que lo lograste?">
+<label>Siguiente paso</label><input id="goalNext" placeholder="Acción más pequeña que puedes iniciar">
+<div class="actions"><button class="btn">Guardar meta</button></div></form></div>
+<div class="card"><h2>Metas activas</h2><div id="goalHistory"></div></div>
+</section>
+
+<section id="datos" class="tab hidden">
+<div class="card"><h2>Tus datos y privacidad</h2><p>Los registros se guardan en el almacenamiento local de este navegador y dispositivo. No se envían automáticamente a ChatGPT ni a ningún servidor.</p>
+<div class="notice">Para que yo pueda revisar tu evolución, exporta tus datos en JSON y adjunta ese archivo en esta conversación. También puedes descargar un CSV de tus registros diarios para abrirlo en Excel.</div>
+<div class="actions"><button class="btn" id="exportJson">Descargar respaldo completo (JSON)</button><button class="secondary" id="exportCsv">Descargar registros diarios (CSV)</button><label class="btn" style="display:inline-flex;align-items:center;gap:8px">Importar respaldo JSON<input type="file" id="importJson" accept=".json,application/json" style="display:none"></label><button class="danger" id="erase">Borrar todos mis datos</button></div>
+<p class="hint">Recomendación: descarga un respaldo semanal y consérvalo en un lugar seguro. Si cambias de navegador o dispositivo, importa el respaldo.</p></div>
+<div class="card"><h2>Cómo trabajaremos juntos</h2><ol><li>Registra tu día en esta página.</li><li>Al cierre de la semana, descarga el respaldo JSON y compártelo conmigo.</li><li>Analizaré patrones, avances, obstáculos y desequilibrios.</li><li>Te propondré el siguiente paso concreto, con una prioridad realista.</li></ol><p class="muted">No puedo entrar por mi cuenta a esta página ni vigilarla en segundo plano. La revisión ocurre cuando compartes aquí el archivo actualizado.</p></div>
+</section>
+<footer>Dirección de Vida · Herramienta personal de seguimiento. La puntuación orienta decisiones; no define tu valor.</footer>
+</main>
+<script>
+const KEY='direccionVida_v1';
+let data=JSON.parse(localStorage.getItem(KEY)||'{"daily":[],"weekly":[],"projects":[],"goals":[]}');
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function today(){const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+$('date').value=today(); $('weekDate').value=today();
+document.querySelectorAll('.rating').forEach(s=>{if(!s.options.length){s.innerHTML='<option value="">—</option>'+[1,2,3,4,5].map(x=>`<option>${x}</option>`).join('')}});
+document.getElementById('tabs').addEventListener('click',e=>{const btn=e.target.closest('button[data-tab]');if(!btn)return;document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('hidden',t.id!==btn.dataset.tab));});
+function avg(arr){let vals=arr.filter(x=>x!==''&&x!=null).map(Number);return vals.length?(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1):'—'}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function table(rows,cols){if(!rows.length)return '<p class="muted">Todavía no hay registros.</p>';return '<div style="overflow:auto"><table><thead><tr>'+cols.map(c=>`<th>${c[1]}</th>`).join('')+'</tr></thead><tbody>'+rows.slice().reverse().map(r=>'<tr>'+cols.map(c=>`<td>${esc(r[c[0]])}</td>`).join('')+'</tr>').join('')+'</tbody></table></div>'}
+function render(){
+$('days').textContent=data.daily.length;
+$('personalAvg').textContent=avg(data.daily.flatMap(x=>[x.physical,x.family,x.relationships]));
+$('financeAvg').textContent=avg(data.daily.map(x=>x.finance));
+$('mentalAvg').textContent=avg(data.daily.flatMap(x=>[x.calm,x.focus]));
+const groups=[['Personal',avg(data.daily.flatMap(x=>[x.physical,x.family,x.relationships]))],['Financiero',avg(data.daily.map(x=>x.finance))],['Mental',avg(data.daily.flatMap(x=>[x.calm,x.focus]))]];
+$('pillarBars').innerHTML=groups.map(([n,v])=>`<div class="metric"><b>${n}</b><span class="pill">${v==='—'?'Sin datos':v+' / 5'}</span></div>`).join('');
+let last=data.daily[data.daily.length-1];$('nextStep').textContent=last?(last.reflection||last.personalAction||last.financeAction||'Revisa qué dimensión necesita atención y define una acción pequeña para mañana.'):'Registra tu día para que podamos elegir una acción concreta.';
+$('recent').innerHTML=table(data.daily.slice(-7),[['date','Fecha'],['personalAction','Acción personal'],['financeAction','Acción financiera'],['reflection','Aprendizaje']]);
+$('dailyHistory').innerHTML=table(data.daily,[['date','Fecha'],['physical','Físico'],['family','Pareja/familia'],['relationships','Relaciones'],['finance','Financiero'],['calm','Calma'],['focus','Enfoque'],['energy','Energía']]);
+$('weeklyHistory').innerHTML=table(data.weekly,[['weekDate','Semana'],['weekScore','Calificación'],['win','Logro'],['blocker','Obstáculo'],['decision','Próxima decisión']]);
+$('projectHistory').innerHTML=table(data.projects,[['name','Proyecto'],['status','Estado'],['progress','Avance %'],['income','Ingresos'],['expense','Gastos'],['next','Siguiente acción']]);
+$('goalHistory').innerHTML=table(data.goals,[['area','Área'],['text','Meta'],['indicator','Indicador'],['due','Fecha objetivo'],['next','Siguiente paso']]);
+}
+$('dailyForm').onsubmit=e=>{e.preventDefault();let o={};['date','physical','family','relationships','finance','financeAction','calm','focus','energy','personalAction','mentalAction','reflection'].forEach(k=>o[k]=$(k).value);let i=data.daily.findIndex(x=>x.date===o.date);if(i>=0)data.daily[i]=o;else data.daily.push(o);data.daily.sort((a,b)=>a.date.localeCompare(b.date));save();alert('Registro guardado.');};
+$('clearDaily').onclick=()=>{$('dailyForm').reset();$('date').value=today()};
+$('weeklyForm').onsubmit=e=>{e.preventDefault();let o={};['weekDate','weekScore','win','blocker','stop','decision'].forEach(k=>o[k]=$(k).value);data.weekly.push(o);save();e.target.reset();$('weekDate').value=today();alert('Revisión semanal guardada.')};
+$('projectForm').onsubmit=e=>{e.preventDefault();data.projects.push({name:$('projectName').value,status:$('projectStatus').value,goal:$('projectGoal').value,kpi:$('projectKpi').value,target:$('projectTarget').value,income:$('income').value,expense:$('expense').value,progress:$('progress').value,due:$('projectDue').value,next:$('projectNext').value});save();e.target.reset();alert('Proyecto guardado.')};
+$('goalForm').onsubmit=e=>{e.preventDefault();data.goals.push({area:$('goalArea').value,due:$('goalDue').value,text:$('goalText').value,indicator:$('goalIndicator').value,next:$('goalNext').value});save();e.target.reset();alert('Meta guardada.')};
+function download(name,content,type){let blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+$('exportJson').onclick=()=>download('respaldo_direccion_de_vida.json',JSON.stringify(data,null,2),'application/json');
+$('exportCsv').onclick=()=>{let cols=['date','physical','family','relationships','finance','financeAction','calm','focus','energy','personalAction','mentalAction','reflection'];let lines=[cols.join(','),...data.daily.map(r=>cols.map(k=>'"'+String(r[k]??'').replace(/"/g,'""')+'"').join(','))];download('registro_diario.csv','\ufeff'+lines.join('\n'),'text/csv;charset=utf-8')};
+$('importJson').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let x=JSON.parse(await f.text());if(!x.daily||!x.weekly||!x.projects||!x.goals)throw Error();data=x;save();alert('Respaldo importado.')}catch(err){alert('No pude leer ese respaldo.')}e.target.value=''};
+$('erase').onclick=()=>{if(confirm('¿Seguro que deseas borrar todos los registros de este navegador? Descarga primero un respaldo.')){data={daily:[],weekly:[],projects:[],goals:[]};save()}};
+render();
+</script>
+</body></html>
